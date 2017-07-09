@@ -46,20 +46,6 @@ p {
   text-align: center;
 }
 
-.box2 {
-    background-color: rgba(0,0,0,0.5);
-    padding: 20px;
-    width: 60%;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-align-items: flex-start;
-    align-items: flex-start;
-    -webkit-justify-content: center;
-    justify-content: center;
-    -webkit-flex-direction: column;
-    flex-direction: column;
-}
-
 .clr {
   clear:both;
 }
