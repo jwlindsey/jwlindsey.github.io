@@ -59,6 +59,11 @@ p {
   max-height:50%;
 }
 
+.image_resize2 {
+  max-width:100%;
+  height: auto;
+}
+
 .clr {
   clear:both;
 }
