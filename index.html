@@ -1,117 +1,355 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Generalist | Modern Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter for main text, Space Mono for code/accents -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Space Mono', 'monospace'],
+                    },
+                    colors: {
+                        slate: {
+                            850: '#151e2e',
+                            950: '#020617', 
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            /* Deep Slate Background with radial glow */
+            background-color: #020617;
+            background-image: 
+                radial-gradient(circle at 50% 0%, #1e293b 0%, transparent 75%),
+                radial-gradient(circle at 100% 100%, #0f172a 0%, transparent 50%);
+            color: #e2e8f0;
+        }
 
-    <!-- Normalize CSS for better cross browser rendering -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+        /* Modern Glass Card */
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.4); /* Slate 800 with opacity */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(148, 163, 184, 0.1); /* Subtle white border */
+            border-top: 1px solid rgba(148, 163, 184, 0.2); /* Slightly brighter top highlight */
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            border-radius: 1rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+        .glass-panel:hover {
+            transform: translateY(-2px);
+            border-color: rgba(148, 163, 184, 0.3);
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4);
+        }
 
-    <link rel="stylesheet" href="assets/css/main.css">
+        /* Gradient Text Utility */
+        .text-gradient {
+            background: linear-gradient(135deg, #e2e8f0 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .text-gradient-cyan {
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-    <title>splash page</title>
+        /* Modern Button */
+        .btn-modern {
+            background: linear-gradient(180deg, #334155 0%, #1e293b 100%);
+            border: 1px solid #475569;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.1);
+            transition: all 0.2s ease;
+        }
+        .btn-modern:hover {
+            background: linear-gradient(180deg, #475569 0%, #334155 100%);
+            border-color: #64748b;
+            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.15), inset 0 1px 0 rgba(255,255,255,0.2);
+            color: #fff;
+        }
 
-  </head>
-  <body>
-    <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <a class="navbar-brand" href="index.html">James Lindsey</a>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="about.html">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://medium.com/@j.w.lindsey1986">Blog</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="contact.html">Contact</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-    <!-- Intro Bio start -->
-    <div>
-      <div class="box">
-        <h1>James Lindsey</h1>
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
 
-        <p>
-          <i>Software Engineer</i>
-        </p>
+        /* Animation for the background gradient shapes (optional/subtle) */
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body class="min-h-screen font-sans selection:bg-cyan-500/30 selection:text-cyan-100">
 
-        <p>
-          I love solving puzzles, especially wooden puzzles. It was my wife's idea to turn solving real world puzzles into solving puzzles with 1's and 0's all day but she was right. I absolutely love it.
-        </p>
-      </div>
-      <!-- Intro Bio End -->
-      <!-- Social links start -->
-      <div class="box row">
-        <div class="col col-xs-6">
-          <a href="https://github.com/jwlindsey">
-            <img src="assets/images/github.png" class="img-thumbnail"/>
-          </a>
+    <!-- Decorative Glows -->
+    <div class="glow-orb w-96 h-96 bg-slate-700 top-0 left-1/4 -translate-y-1/2"></div>
+    <div class="glow-orb w-64 h-64 bg-cyan-900/20 bottom-0 right-0"></div>
+
+    <div class="max-w-6xl mx-auto px-4 py-8 sm:px-6 lg:px-8 relative z-10">
+        
+        <!-- Navbar / Header -->
+        <nav class="glass-panel mb-10 px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-2 h-8 bg-gradient-to-b from-cyan-400 to-blue-600 rounded-full"></div>
+                <h1 class="text-2xl font-bold tracking-tight font-mono text-white">
+                    THE_GENERALIST
+                </h1>
+            </div>
+            <ul class="flex gap-1 p-1 bg-slate-950/50 rounded-full border border-white/5">
+                <li><a href="#about" class="block px-4 py-1.5 rounded-full text-sm font-medium text-slate-400 hover:text-white hover:bg-white/5 transition-all">About</a></li>
+                <li><a href="#philosophy" class="block px-4 py-1.5 rounded-full text-sm font-medium text-slate-400 hover:text-white hover:bg-white/5 transition-all">Philosophy</a></li>
+                <li><a href="#skills" class="block px-4 py-1.5 rounded-full text-sm font-medium text-slate-400 hover:text-white hover:bg-white/5 transition-all">Skills</a></li>
+                <li><a href="mailto:contact@example.com" class="block px-4 py-1.5 rounded-full text-sm font-medium text-white bg-slate-800 border border-slate-600 shadow-sm">Contact</a></li>
+            </ul>
+        </nav>
+
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+            
+            <!-- Main Profile Section -->
+            <main class="md:col-span-8 space-y-8">
+                <!-- Hero Card -->
+                <div class="glass-panel p-8 md:p-10 relative overflow-hidden">
+                    <!-- Subtle background stroke -->
+                    <div class="absolute -right-10 -top-10 w-40 h-40 border-[20px] border-white/5 rounded-full"></div>
+                    
+                    <span class="inline-block px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-300 text-xs font-mono mb-4 uppercase tracking-wider">
+                        System Level: 99
+                    </span>
+                    
+                    <h2 class="text-4xl md:text-5xl font-extrabold mb-6 leading-tight text-white">
+                        I am a Professional <br />
+                        <span class="text-gradient-cyan">Jack of All Trades.</span>
+                    </h2>
+                    
+                    <p class="text-lg text-slate-400 mb-6 leading-relaxed max-w-2xl">
+                        I don't just "dabble." I dive deep. In a specialized world, I bring the big picture. From construction sites to laboratories, and from the stock market to the wilderness, I've gathered a toolkit that lets me solve unique problems with unique solutions.
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#skills" class="btn-modern px-6 py-3 rounded-lg text-sm font-bold text-slate-200 uppercase tracking-wide">
+                            View Arsenal
+                        </a>
+                        <a href="mailto:contact@example.com" class="px-6 py-3 rounded-lg text-sm font-bold text-slate-400 hover:text-white transition-colors uppercase tracking-wide border border-transparent hover:border-slate-700">
+                            Get in Touch
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Philosophy Section -->
+                <div id="philosophy" class="glass-panel p-8 flex gap-6 items-start">
+                    <div class="hidden sm:block text-5xl text-slate-700 font-serif opacity-50">"</div>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-200 mb-3">The Methodology</h3>
+                        <p class="text-slate-400 leading-relaxed italic">
+                            My hobbies and interests change all the time. Because of this, I have amassed experience in fields that rarely interact. I bring the precision of microbiology to carpentry, and the patience of animal training to investing.
+                        </p>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Sidebar / Stats -->
+            <aside class="md:col-span-4 space-y-6">
+                
+                <!-- Profile Card -->
+                <div class="glass-panel p-6 flex flex-col items-center text-center">
+                    <div class="w-32 h-32 rounded-full p-1 bg-gradient-to-tr from-slate-700 to-slate-800 mb-4 shadow-xl">
+                        <div class="w-full h-full rounded-full bg-slate-900 flex items-center justify-center overflow-hidden">
+                            <svg class="w-16 h-16 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-xl text-white">The Explorer</h3>
+                    <p class="text-sm text-slate-500 font-mono mb-6">Polymath in Training</p>
+                    
+                    <div class="w-full space-y-4">
+                        <div class="group">
+                            <div class="flex justify-between text-xs font-mono text-slate-400 mb-1">
+                                <span>CURIOSITY</span>
+                                <span class="text-cyan-400">100%</span>
+                            </div>
+                            <div class="w-full bg-slate-800 rounded-full h-1.5">
+                                <div class="bg-gradient-to-r from-cyan-600 to-cyan-400 h-1.5 rounded-full w-full shadow-[0_0_10px_rgba(34,211,238,0.3)]"></div>
+                            </div>
+                        </div>
+                        <div class="group">
+                            <div class="flex justify-between text-xs font-mono text-slate-400 mb-1">
+                                <span>ADAPTABILITY</span>
+                                <span class="text-indigo-400">100%</span>
+                            </div>
+                            <div class="w-full bg-slate-800 rounded-full h-1.5">
+                                <div class="bg-gradient-to-r from-indigo-600 to-indigo-400 h-1.5 rounded-full w-full shadow-[0_0_10px_rgba(129,140,248,0.3)]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mini Contact -->
+                <div class="glass-panel p-6 bg-gradient-to-br from-slate-800/40 to-slate-900/40">
+                    <h4 class="text-sm font-bold text-slate-300 uppercase tracking-wider mb-4">Availability</h4>
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="relative flex h-3 w-3">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                        </span>
+                        <span class="text-sm text-slate-400">Open to new projects</span>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-2">Specializing in projects requiring cross-disciplinary knowledge.</p>
+                </div>
+            </aside>
         </div>
-        <div class="col col-xs-6">
-          <a href="https://www.linkedin.com/in/james-lindsey-97744576">
-            <img src="assets/images/linkedin.png" class="img-thumbnail"/>
-          </a>
-        </div>
-        <div class="col col-xs-6">
-          <a href="https://www.facebook.com/linguisticpreacher">
-            <img src="assets/images/facebook.png" class="img-thumbnail"/>
-          </a>
-        </div>
-        <div class="col col-xs-6">
-          <a href="https://plus.google.com/u/0/108305174762148937302">
-            <img src="assets/images/googleplus.png" class="img-thumbnail"/>
-          </a>
-        </div>
-      </div>
-      <!-- Social links end -->
-      <!-- Projects Showcase Start-->
-      <div class="box1">
-        <div class="row">
-          <div class="col">
-            <a class="m-2" href="https://nomster-james-lindsey.herokuapp.com/">
-              <img src="assets/images/app.png" class="img-thumbnail"/>
-            </a>
-            <blockquote class="caption center-block" style="color: white;">Yelp for BBQ</blockquote>
-          </div>
-          <div class="col">
-            <a class="m-2" href="https://splurty-james-lindsey.herokuapp.com/">
-              <img src="assets/images/app.png" class="img-thumbnail"/>
-            </a>
-            <blockquote class="caption center-block" style="color: white;">Texas Carnivores Website</blockquote>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <a class="m-2" href="https://texas-carnivores.herokuapp.com/">
-              <img src="assets/images/app.png" class="img-thumbnail"/>
-            </a>
-            <blockquote class="caption center-block" style="color: white;">Texas Carnivores Website</blockquote>
-          </div>
-        </div>
-      </div>
-      <!-- Projects showcase end -->
+
+        <!-- Skills Grid -->
+        <section id="skills" class="mt-12">
+            <div class="flex items-end justify-between mb-8 px-2">
+                <div>
+                    <h3 class="text-3xl font-bold text-white mb-2">Skill Database</h3>
+                    <p class="text-slate-400 text-sm">Categorized capabilities & acquired knowledge</p>
+                </div>
+                <div class="hidden sm:block h-px flex-1 bg-gradient-to-r from-slate-800 to-transparent ml-8 mb-2"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <!-- Category 1: Hands On -->
+                <div class="glass-panel p-0 overflow-hidden group">
+                    <div class="p-4 bg-slate-800/30 border-b border-white/5">
+                        <h4 class="font-bold text-slate-200 flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.5)]"></span>
+                            Trades & Labor
+                        </h4>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-3">
+                            <li class="flex items-center text-slate-400 text-sm group/item hover:text-amber-200 transition-colors">
+                                <i class="fas fa-hammer w-6 text-center text-slate-600 group-hover/item:text-amber-500 transition-colors"></i>
+                                Carpentry & Framing
+                            </li>
+                            <li class="flex items-center text-slate-400 text-sm group/item hover:text-amber-200 transition-colors">
+                                <i class="fas fa-bolt w-6 text-center text-slate-600 group-hover/item:text-amber-500 transition-colors"></i>
+                                Electrical Work
+                            </li>
+                            <li class="flex items-center text-slate-400 text-sm group/item hover:text-amber-200 transition-colors">
+                                <i class="fas fa-paint-roller w-6 text-center text-slate-600 group-hover/item:text-amber-500 transition-colors"></i>
+                                Drywall Texturing
+                            </li>
+                            <li class="flex items-center text-slate-400 text-sm group/item hover:text-amber-200 transition-colors">
+                                <i class="fas fa-cubes w-6 text-center text-slate-600 group-hover/item:text-amber-500 transition-colors"></i>
+                                Brick Laying
+                            </li>
+                            <li class="flex items-center text-slate-400 text-sm group/item hover:text-amber-200 transition-colors">
+                                <i class="fas fa-fire w-6 text-center text-slate-600 group-hover/item:text-amber-500 transition-colors"></i>
+                                Smithing
+                            </li>
+                            <li class="flex items-center text-slate-400 text-sm group/item hover:text-amber-200 transition-colors">
+                                <i class="fas fa-wrench w-6 text-center text-slate-600 group-hover/item:text-amber-500 transition-colors"></i>
+                                Car Repair
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Category 2: Science -->
+                <div class="glass-panel p-0 overflow-hidden group">
+                    <div class="p-4 bg-slate-800/30 border-b border-white/5">
+                        <h4 class="font-bold text-slate-200 flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span>
+                            Nature & Science
+                        </h4>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-3">
+                            <li class="flex items-center text-slate-400 text-sm group/item hover:text-emerald-200 transition-colors">
+                                <span class="w-6 text-center text-slate-600 group-hover/item:text-emerald-500">🔬</span>
+                                Microbiology
+                            </li>
+                            <li class="flex items-center text-slate-400 text-sm group/item hover:text-emerald-200 transition-colors">
+                                <span class="w-6 text-center text-slate-600 group-hover/item:text-emerald-500">🐞</span>
+                                Entomology
+                            </li>
+                            <li class="flex items-center text-slate-400 text-sm group/item hover:text-emerald-200 transition-colors">
+                                <span class="w-6 text-center text-slate-600 group-hover/item:text-emerald-500">🪴</span>
+                                Carnivorous Plants
+                            </li>
+                            <li class="flex items-center text-slate-400 text-sm group/item hover:text-emerald-200 transition-colors">
+                                <span class="w-6 text-center text-slate-600 group-hover/item:text-emerald-500">🌳</span>
+                                Arborist Work
+                            </li>
+                            <li class="flex items-center text-slate-400 text-sm group/item hover:text-emerald-200 transition-colors">
+                                <span class="w-6 text-center text-slate-600 group-hover/item:text-emerald-500">🐕</span>
+                                Animal Training & Rescue
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Category 3: Misc -->
+                <div class="glass-panel p-0 overflow-hidden group">
+                    <div class="p-4 bg-slate-800/30 border-b border-white/5">
+                        <h4 class="font-bold text-slate-200 flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-purple-500 shadow-[0_0_8px_rgba(168,85,247,0.5)]"></span>
+                            Exploration & Misc
+                        </h4>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-3">
+                            <li class="flex items-center text-slate-400 text-sm group/item hover:text-purple-200 transition-colors">
+                                <span class="w-6 text-center text-slate-600 group-hover/item:text-purple-500">🚀</span>
+                                Space Technology
+                            </li>
+                            <li class="flex items-center text-slate-400 text-sm group/item hover:text-purple-200 transition-colors">
+                                <span class="w-6 text-center text-slate-600 group-hover/item:text-purple-500">📈</span>
+                                Market Investing
+                            </li>
+                            <li class="flex items-center text-slate-400 text-sm group/item hover:text-purple-200 transition-colors">
+                                <span class="w-6 text-center text-slate-600 group-hover/item:text-purple-500">🖨️</span>
+                                3D Printing
+                            </li>
+                            <li class="flex items-center text-slate-400 text-sm group/item hover:text-purple-200 transition-colors">
+                                <span class="w-6 text-center text-slate-600 group-hover/item:text-purple-500">✨</span>
+                                Astrology
+                            </li>
+                            <li class="flex items-center text-slate-400 text-sm group/item hover:text-purple-200 transition-colors">
+                                <span class="w-6 text-center text-slate-600 group-hover/item:text-purple-500">🏔️</span>
+                                Mountain Exploring
+                            </li>
+                             <li class="flex items-center text-slate-400 text-sm group/item hover:text-purple-200 transition-colors">
+                                <span class="w-6 text-center text-slate-600 group-hover/item:text-purple-500">🍳</span>
+                                Cooking
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center py-12 mt-8 border-t border-slate-800/50">
+            <p class="text-slate-500 text-sm font-mono">
+                &copy; 2025 The Generalist. <span class="text-slate-700 mx-2">|</span> Built with <span class="text-cyan-600">Curiosity</span>
+            </p>
+        </footer>
     </div>
+    
+    <!-- Font Awesome (for icons) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
 
-    <footer class="footer">
-      <div class="container">
-        <span class="text-muted">Made on little rest and powered by github.</span>
-      </div>
-    </footer>
-
-  <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-  </body>
+</body>
 </html>
